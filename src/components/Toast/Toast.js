@@ -19,7 +19,7 @@ const ICONS_BY_VARIANT = {
 };
 
 // variant: notice | warning | success | error
-function Toast({ variant }) {
+function Toast({ variant, children, onClose }) {
   const Icon = ICONS_BY_VARIANT[variant];
 
   return (
@@ -27,8 +27,8 @@ function Toast({ variant }) {
       <div className={styles.iconContainer}>
         <Icon size={24} />
       </div>
-      <p className={styles.content}>16 photos have been uploaded</p>
-      <button className={styles.closeButton}>
+      <p className={styles.content}>{children}</p>
+      <button className={styles.closeButton} onClick={onClose}>
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
