@@ -37,5 +37,5 @@ export const useToast = () => {
     [toasts]
   );
 
-  return { toasts, addToast, dismissToast };
+  return { addToast, dismissToast };
 };
