@@ -11,6 +11,8 @@ import VisuallyHidden from "../VisuallyHidden";
 
 import styles from "./Toast.module.css";
 
+import { useToast } from "../../hooks/useToast";
+
 const ICONS_BY_VARIANT = {
   notice: Info,
   warning: AlertTriangle,
@@ -19,8 +21,10 @@ const ICONS_BY_VARIANT = {
 };
 
 // variant: notice | warning | success | error
-function Toast({ variant, children, toastID, dismissToast }) {
+function Toast({ variant, children, toastID }) {
   const Icon = ICONS_BY_VARIANT[variant];
+
+  const { dismissToast } = useToast();
 
   return (
     <div className={`${styles.toast} ${styles[variant]}`}>

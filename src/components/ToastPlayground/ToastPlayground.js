@@ -5,42 +5,16 @@ import ToastShelf from "../ToastShelf/ToastShelf";
 
 import styles from "./ToastPlayground.module.css";
 
+import { useToast } from "../../hooks/useToast";
+
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastVariant, setToastVariant] = useState(VARIANT_OPTIONS[0]);
 
-  const [toasts, setToasts] = useState({});
+  const { addToast } = useToast();
 
-  const getNextToastID = () => {
-    const sortedDescendingKeys = Object.keys(toasts).sort((a, b) =>
-      b.localeCompare(a)
-    );
-
-    return sortedDescendingKeys.length > 0
-      ? Number(sortedDescendingKeys[0]) + 1
-      : 0;
-  };
-
-  const addToast = (toast) => {
-    const newToasts = structuredClone(toasts);
-    const newToastID = getNextToastID();
-
-    newToasts[newToastID] = toast;
-
-    setToasts(newToasts);
-  };
-
-  const dismissToast = (toastID) => {
-    const newToasts = structuredClone(toasts);
-
-    delete newToasts[toastID];
-
-    setToasts(newToasts);
-  };
-
-  // TODO: reconfigure for multiple toasts
   const handlePopToast = (e) => {
     e.preventDefault();
 
@@ -66,7 +40,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <ToastShelf toasts={toasts} dismissToast={dismissToast} />
+      <ToastShelf />
 
       <form className={styles.controlsWrapper} onSubmit={handlePopToast}>
         <div className={styles.row}>
